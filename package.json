@@ -1,0 +1,25 @@
+{
+  "name": "vue-putty",
+  "version": "1.0.0",
+  "description": "Drag events Vue.js style. Touch compatible.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tcoats/vue-putty.git"
+  },
+  "keywords": [
+    "vuejs",
+    "touch",
+    "drag",
+    "events"
+  ],
+  "author": "Thomas Coats <github@voodoolabs.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tcoats/vue-putty/issues"
+  },
+  "homepage": "https://github.com/tcoats/vue-putty#readme"
+}
