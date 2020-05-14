@@ -1,6 +1,6 @@
 {
   "name": "vue-putty",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Drag events Vue.js style. Touch compatible.",
   "main": "index.js",
   "scripts": {
