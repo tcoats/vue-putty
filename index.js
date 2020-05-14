@@ -8,7 +8,7 @@ const noop = () => {}
 export default {
   name: 'putty',
   functional: true,
-  render: (h, { listeners, scopedSlots }) => {
+  render: (h, { props, listeners, scopedSlots }) => {
     const emit = {
       start: listeners.start || noop,
       move: listeners.move || noop,
@@ -25,7 +25,7 @@ export default {
       const current = [e.clientX - rect.left, e.clientY - rect.top]
       delta = [current[0] - start[0], current[1] - start[1]]
       if (!hasmoved) {
-        emit.start({ start })
+        emit.start(start)
         hasmoved = true
       }
       emit.move({ start, current, delta })
@@ -34,7 +34,7 @@ export default {
       if (hasmoved) return
       const rect = e.target.getBoundingClientRect()
       const current = [e.clientX - rect.left, e.clientY - rect.top]
-      emit.hover({ current })
+      emit.hover(current)
     }
     const mouseleave = e => {
       if (hasmoved) return
@@ -63,7 +63,7 @@ export default {
       const current = [e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top]
       const delta = [current[0] - start[0], current[1] - start[1]]
       if (!hasmoved) {
-        emit.start({ start })
+        emit.start(start)
         hasmoved = true
       }
       emit.move({ start, current, delta })
@@ -88,9 +88,11 @@ export default {
       window.addEventListener('touchend', touchend)
     }
     const content = scopedSlots.default ? [scopedSlots.default()] : []
+    const className = props.className || 'putty'
+    const tagName = props.tagName || 'div'
     return istouch
-      ? h('div', { class: { putty: true }, on: { touchstart }}, content)
-      : h('div', { class: { putty: true }, on: { mousedown, mousemove: hover, mouseleave }}, content)
+      ? h(tagName, { class: { [className]: true }, on: { touchstart }}, content)
+      : h(tagName, { class: { [className]: true }, on: { mousedown, mousemove: hover, mouseleave }}, content)
   }
 }
 
