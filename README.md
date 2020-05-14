@@ -42,6 +42,7 @@ h(putty, {
 ```
 
 ```vue
+<!-- .vue file -->
 <div id="app">
   <putty
     tagName="div"
@@ -55,6 +56,7 @@ h(putty, {
   ></putty>
 </div>
 
+<script>
 var app = new Vue({
   el: '#app',
   methods: {
@@ -87,4 +89,5 @@ var app = new Vue({
     }
   }
 })
+</script>
 ````
