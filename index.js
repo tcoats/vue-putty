@@ -9,6 +9,7 @@ export default {
   name: 'putty',
   functional: true,
   render: (h, { props, listeners, scopedSlots }) => {
+    const offset = props.offset || [0, 0]
     const emit = {
       start: listeners.start || noop,
       move: listeners.move || noop,
@@ -22,7 +23,10 @@ export default {
     let delta = null
     const mousemove = e => {
       const rect = e.target.getBoundingClientRect()
-      const current = [e.clientX - rect.left, e.clientY - rect.top]
+      const current = [
+        e.clientX - rect.left - offset[0],
+        e.clientY - rect.top - offset[1]
+      ]
       delta = [current[0] - start[0], current[1] - start[1]]
       if (!hasmoved) {
         emit.start(start)
@@ -33,7 +37,10 @@ export default {
     const hover = e => {
       if (hasmoved) return
       const rect = e.target.getBoundingClientRect()
-      const current = [e.clientX - rect.left, e.clientY - rect.top]
+      const current = [
+        e.clientX - rect.left - offset[0],
+        e.clientY - rect.top - offset[1]
+      ]
       emit.hover(current)
     }
     const mouseleave = e => {
@@ -42,7 +49,10 @@ export default {
     }
     const mouseup = e => {
       const rect = e.target.getBoundingClientRect()
-      const end = [e.clientX - rect.left, e.clientY - rect.top]
+      const end = [
+        e.clientX - rect.left - offset[0],
+        e.clientY - rect.top - offset[1]
+      ]
       const delta = [end[0] - start[0], end[1] - start[1]]
       window.removeEventListener('mousemove', mousemove)
       window.removeEventListener('mouseup', mouseup)
@@ -53,14 +63,20 @@ export default {
     const mousedown = e => {
       e.preventDefault()
       let rect = e.target.getBoundingClientRect()
-      start = [e.clientX - rect.left, e.clientY - rect.top]
+      start = [
+        e.clientX - rect.left - offset[0],
+        e.clientY - rect.top - offset[1]
+      ]
       hasmoved = false
       window.addEventListener('mousemove', mousemove)
       window.addEventListener('mouseup', mouseup)
     }
     const touchmove = e => {
       const rect = e.target.getBoundingClientRect()
-      const current = [e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top]
+      const current = [
+        e.touches[0].clientX - rect.left - offset[0],
+        e.touches[0].clientY - rect.top - offset[1]
+      ]
       const delta = [current[0] - start[0], current[1] - start[1]]
       if (!hasmoved) {
         emit.start(start)
@@ -70,7 +86,10 @@ export default {
     }
     const touchend = e => {
       const rect = e.target.getBoundingClientRect()
-      const end = [e.changedTouches[0].clientX - rect.left, e.changedTouches[0].clientY - rect.top]
+      const end = [
+        e.touches[0].clientX - rect.left - offset[0],
+        e.touches[0].clientY - rect.top - offset[1]
+      ]
       const delta = [end[0] - start[0], end[1] - start[1]]
       window.removeEventListener('touchmove', touchmove)
       window.removeEventListener('touchend', touchend)
@@ -82,8 +101,9 @@ export default {
       hasmoved = false
       let rect = e.target.getBoundingClientRect()
       start = [
-        e.touches[0].clientX - rect.left,
-        e.touches[0].clientY - rect.top]
+        e.touches[0].clientX - rect.left - offset[0],
+        e.touches[0].clientY - rect.top - offset[1]
+      ]
       window.addEventListener('touchmove', touchmove)
       window.addEventListener('touchend', touchend)
     }
