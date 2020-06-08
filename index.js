@@ -18,8 +18,8 @@ function putty(props, listeners) {
   let hasmoved = null
   let start = null
   let delta = null
+  let rect = null
   const mousemove = e => {
-    const rect = e.target.getBoundingClientRect()
     const current = [
       e.clientX - rect.left - offset[0],
       e.clientY - rect.top - offset[1]
@@ -33,7 +33,7 @@ function putty(props, listeners) {
   }
   const hover = e => {
     if (hasmoved) return
-    const rect = e.target.getBoundingClientRect()
+    rect = e.target.getBoundingClientRect()
     const current = [
       e.clientX - rect.left - offset[0],
       e.clientY - rect.top - offset[1]
@@ -45,7 +45,6 @@ function putty(props, listeners) {
     emit.leave()
   }
   const mouseup = e => {
-    const rect = e.target.getBoundingClientRect()
     const end = [
       e.clientX - rect.left - offset[0],
       e.clientY - rect.top - offset[1]
@@ -59,7 +58,7 @@ function putty(props, listeners) {
   }
   const mousedown = e => {
     e.preventDefault()
-    let rect = e.target.getBoundingClientRect()
+    rect = e.target.getBoundingClientRect()
     start = [
       e.clientX - rect.left - offset[0],
       e.clientY - rect.top - offset[1]
@@ -69,7 +68,6 @@ function putty(props, listeners) {
     window.addEventListener('mouseup', mouseup)
   }
   const touchmove = e => {
-    const rect = e.target.getBoundingClientRect()
     const current = [
       e.touches[0].clientX - rect.left - offset[0],
       e.touches[0].clientY - rect.top - offset[1]
@@ -82,7 +80,6 @@ function putty(props, listeners) {
     emit.move({ start, current, delta })
   }
   const touchend = e => {
-    const rect = e.target.getBoundingClientRect()
     const end = [
       e.touches[0].clientX - rect.left - offset[0],
       e.touches[0].clientY - rect.top - offset[1]
@@ -96,7 +93,7 @@ function putty(props, listeners) {
   const touchstart = e => {
     e.preventDefault()
     hasmoved = false
-    let rect = e.target.getBoundingClientRect()
+    rect = e.target.getBoundingClientRect()
     start = [
       e.touches[0].clientX - rect.left - offset[0],
       e.touches[0].clientY - rect.top - offset[1]
