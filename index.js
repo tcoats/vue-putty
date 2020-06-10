@@ -81,8 +81,8 @@ function putty(props, listeners) {
   }
   const touchend = e => {
     const end = [
-      e.touches[0].clientX - rect.left - offset[0],
-      e.touches[0].clientY - rect.top - offset[1]
+      e.changedTouches[0].clientX - rect.left - offset[0],
+      e.changedTouches[0].clientY - rect.top - offset[1]
     ]
     const delta = [end[0] - start[0], end[1] - start[1]]
     window.removeEventListener('touchmove', touchmove)
